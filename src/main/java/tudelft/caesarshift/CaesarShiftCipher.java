@@ -11,8 +11,15 @@ public class CaesarShiftCipher {
 
         for(int i = 0; i < length; i++){
             currentChar = message.charAt(i);
-           
-            sb.append(currentChar);
+
+            // sb.append(currentChar); <--- FOUND THE BUG 1
+
+            // BUG 2: spaces are mentioned in the spec, but not accounted for in these checks
+            if (currentChar == ' '){
+                sb.append(currentChar);
+                continue;
+            }
+
             if (currentChar > 'z' || currentChar < 'a') {
                 return "invalid";
             } else if ((char) (currentChar + shift) > 'z') {
